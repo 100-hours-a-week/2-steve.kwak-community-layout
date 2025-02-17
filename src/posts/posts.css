@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#profile-img {
+    position: absolute;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.post-header {
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+    margin: 20px auto;
+}
+
+#create-post {
+    background-color: #6A5ACD; /* 설계서 색상 */
+    color: white;
+    font-size: 18px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#create-post:hover {
+    background-color: #483D8B; /* hover 효과 */
+}
+
+#post-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-card {
+    width: 80%;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 8px;
+}
