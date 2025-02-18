@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
     const createPostBtn = document.getElementById("create-post");
+    const profileDropdown = document.querySelector(".profile-dropdown");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const editProfile = document.getElementById("edit-profile");
+    const editPassword = document.getElementById("edit-password");
 
     // 예제 데이터
     const posts = [
@@ -27,6 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createPostBtn.addEventListener("click", () => {
         alert("게시글 작성 페이지로 이동!");
+    });
+
+    // 프로필 드롭다운 클릭 이벤트
+    profileDropdown.addEventListener("click", () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // 회원정보 수정 페이지 이동
+    editProfile.addEventListener("click", () => {
+        window.location.href = "../editprofile/editprofile.html";
+    });
+
+    // 비밀번호 수정 페이지 이동
+    editPassword.addEventListener("click", () => {
+        window.location.href = "../editpassword/editpassword.html";
     });
 
     renderPosts();
