@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="postDetail.css">
+    <script defer src="../common/common.js"></script>
+    <script defer src="postDetail.js"></script>
+</head>
+<body>
+
+
+<main>
+    <section class="post-container">
+        <h1 class="post-title">제목 1</h1>
+        <div class="post-meta">
+            <span class="post-author">작성자 1</span>
+            <span class="post-date">2024-02-18 00:00:00</span>
+        </div>
+        <img src="../common/sample-image.png" alt="게시글 이미지" class="post-image">
+        <p class="post-content">
+            무작위 텍스트입니다. 여기에 게시글 내용을 넣어주세요.
+        </p>
+
+        <div class="post-stats">
+            <button class="like-btn">👍 123</button>
+            <span class="view-count">조회수 123</span>
+            <span class="comment-count">댓글 123</span>
+        </div>
+
+        <div class="post-actions">
+            <button class="edit-btn">수정</button>
+            <button class="delete-btn">삭제</button>
+        </div>
+    </section>
+
+    <section class="comment-section">
+        <h2>댓글</h2>
+        <textarea placeholder="댓글을 입력하세요"></textarea>
+        <button class="comment-submit">댓글 등록</button>
+
+        <ul class="comment-list">
+            <li class="comment">
+                <p class="comment-author">작성자 1</p>
+                <p class="comment-content">댓글 내용</p>
+                <div class="comment-actions">
+                    <button class="edit-comment">수정</button>
+                    <button class="delete-comment">삭제</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 삭제 확인 모달 -->
+    <div class="modal hidden">
+        <div class="modal-content">
+            <p>게시글을 삭제하시겠습니까?</p>
+            <button class="modal-cancel">취소</button>
+            <button class="modal-confirm">확인</button>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
