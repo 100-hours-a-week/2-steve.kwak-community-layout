@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     createPostBtn.addEventListener("click", () => {
-        alert("게시글 작성 페이지로 이동!");
+        window.location.href = "../makepost/makepost.html";
     });
 
     // 프로필 드롭다운 클릭 이벤트
