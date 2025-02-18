@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const profileDropdown = document.querySelector(".profile-dropdown");
     const dropdownMenu = document.querySelector(".dropdown-menu");
+    const dropdownItems = document.querySelectorAll(".dropdown-item");
     const updateBtn = document.querySelector(".update-btn");
     const deleteBtn = document.querySelector(".delete-btn");
     const modal = document.querySelector(".modal");
@@ -13,7 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
         dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
     });
 
-    // 닉네임 검증
+    // 드롭다운 메뉴 클릭 이벤트 추가
+    dropdownItems.forEach((item) => {
+        item.addEventListener("click", (event) => {
+            if (event.target.textContent === "회원정보 수정") {
+                window.location.href = "../editprofile/editprofile.html"; // 회원정보 수정 페이지로 이동
+            } else if (event.target.textContent === "비밀번호 수정") {
+                window.location.href = "../editpassword/editpassword.html"; // 비밀번호 수정 페이지로 이동
+            }
+        });
+    });
+
+    // 닉네임 입력 검증
     nicknameInput.addEventListener("input", () => {
         if (nicknameInput.value.length > 10) {
             helperText.textContent = "*닉네임은 최대 10자까지 가능합니다.";
@@ -43,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmDelete = confirm("정말로 회원 탈퇴를 진행하시겠습니까?");
         if (confirmDelete) {
             alert("회원 탈퇴가 완료되었습니다.");
-            window.location.href = "login.html"; // 로그인 페이지로 이동
+            window.location.href = "../login/login.html"; // 로그인 페이지로 이동
         }
     });
 });
