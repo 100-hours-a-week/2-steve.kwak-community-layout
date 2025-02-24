@@ -9,40 +9,69 @@ body {
     margin: 20px auto;
 }
 
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 제목을 중앙에 배치 */
+}
+
 .post-title {
     font-size: 24px;
     font-weight: bold;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
 }
 
-.post-meta {
-    font-size: 14px;
-    color: gray;
+/* 뒤로가기 버튼 (화살표 모양으로 수정) */
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #7A6FFA;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    left: 10px;  /* "아무 말 대잔치" 옆에 위치하도록 설정 */
 }
 
-.post-image {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
+.back-btn:hover {
+    color: #5A4FCF;
 }
 
-.post-content {
-    font-size: 16px;
-    margin: 10px 0;
-}
-
-.post-stats {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-}
-
+/* 게시글 수정/삭제 버튼 위치 */
 .post-actions {
     display: flex;
     gap: 10px;
 }
 
+/* 댓글 입력란 크기 확장 및 중앙 배치 */
 .comment-section {
     margin-top: 20px;
+    text-align: center; /* 중앙 정렬 */
+}
+
+.comment-input {
+    width: 80%;  /* 크기 확장 */
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.comment-submit {
+    background: #7A6FFA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-submit:hover {
+    background: #5A4FCF;
 }
 
 .comment-list {
