@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 예제 데이터
     const posts = [
-        { title: "제목 1", likes: 100, comments: 10, views: 500, author: "작성자1", date: "2024-02-17" },
-        { title: "제목 2", likes: 50, comments: 5, views: 300, author: "작성자2", date: "2024-02-16" },
+        { id: 1, title: "제목 1", likes: 100, comments: 10, views: 500, author: "작성자1", date: "2024-02-17" },
+        { id: 2, title: "제목 2", likes: 50, comments: 5, views: 300, author: "작성자2", date: "2024-02-16" },
     ];
 
     function renderPosts() {
         postList.innerHTML = "";
-        posts.forEach((post, index) => {
+        posts.forEach((post) => {
             const postCard = document.createElement("div");
             postCard.classList.add("post-card");
             postCard.innerHTML = `
@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>작성자: ${post.author} | ${post.date}</p>
             `;
             postCard.addEventListener("click", () => {
-                alert(`게시글 ${index + 1} 클릭됨! (상세 페이지 이동 예정)`);
+                // 게시글 클릭 시 상세 페이지로 이동 (게시글 id를 URL에 포함)
+                window.location.href = `../postdetail/postdetail.html?id=${post.id}`;
             });
             postList.appendChild(postCard);
         });
