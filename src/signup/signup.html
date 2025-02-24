@@ -7,52 +7,64 @@
     <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-<div class="container">
-    <header>
+<!-- 상단 제목과 뒤로가기 버튼 -->
+<header>
+    <div class="header-container">
         <button id="backBtn">←</button>
-        <h1>아무 말 대잔치</h1>
-    </header>
+        <h1 class="title">아무 말 대잔치</h1>
+    </div>
+</header>
 
-    <div class="signup-box">
-        <h2>회원가입</h2>
+<!-- 회원가입 박스 -->
+<div class="signup-box">
+    <h2>회원가입</h2>
 
-        <!-- 프로필 이미지 -->
-        <div class="profile-upload">
-            <label for="profilePic">
-                <img id="profilePreview" src="default-profile.png" alt="프로필 사진">
-            </label>
-            <input type="file" id="profilePic" accept="image/*">
-            <p class="helper-text">프로필 사진을 등록하세요.</p>
+    <!-- 프로필 이미지 -->
+    <div class="profile-upload">
+        <label for="profilePic">
+            <img id="profilePreview" src="default-profile.png" alt="프로필 사진">
+        </label>
+        <input type="file" id="profilePic" accept="image/*">
+        <p class="helper-text">프로필 사진을 등록하세요.</p>
+    </div>
+
+    <form id="signupForm">
+        <div class="input-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" placeholder="이메일을 입력하세요" required>
+            <p class="helper-text">* helper text</p>
         </div>
 
-        <form id="signupForm">
-            <div class="input-group">
-                <label for="email">이메일</label>
-                <input type="email" id="email" required>
-            </div>
+        <div class="input-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+            <p class="helper-text">* helper text</p>
+        </div>
 
-            <div class="input-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" required>
-            </div>
+        <div class="input-group">
+            <label for="confirmPassword">비밀번호 확인</label>
+            <input type="password" id="confirmPassword" placeholder="비밀번호를 한번 더 입력하세요" required>
+            <p class="helper-text">* helper text</p>
+        </div>
 
-            <div class="input-group">
-                <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" id="confirmPassword" required>
-            </div>
+        <div class="input-group">
+            <label for="nickname">닉네임</label>
+            <input type="text" id="nickname" placeholder="닉네임을 입력하세요" required>
+            <p class="helper-text">* helper text</p>
+        </div>
 
-            <div class="input-group">
-                <label for="nickname">닉네임</label>
-                <input type="text" id="nickname" required>
-            </div>
+        <!-- 회원가입 버튼 -->
+        <button type="submit" class="signup-btn">회원가입</button>
+    </form>
 
-            <button type="submit">회원가입</button>
-        </form>
-
-        <p><a href="../login/login.html">로그인하러 가기</a></p>
-    </div>
+    <p class="login-link"><a href="login.html">로그인하러 가기</a></p>
 </div>
 
-<script src="signup.js"></script>
+<script>
+    // 뒤로가기 버튼 클릭 시 login.html로 이동
+    document.getElementById("backBtn").addEventListener("click", function () {
+        window.location.href = "../login/login.html";  // 경로 오류 수정
+    });
+</script>
 </body>
 </html>
