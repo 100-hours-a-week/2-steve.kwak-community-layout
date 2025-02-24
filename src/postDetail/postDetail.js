@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalText = modal.querySelector("p"); // 모달 내 메시지 요소
     const modalCancel = document.querySelector(".modal-cancel");
     const modalConfirm = document.querySelector(".modal-confirm");
+    const editBtn = document.querySelector(".edit-btn"); // 수정 버튼
 
     let deleteTarget = null; // 삭제할 요소 저장 변수
 
@@ -42,5 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modal.classList.add("hidden");
         deleteTarget = null;
+    });
+
+    // 게시글 수정 버튼 클릭 시 postedit 페이지로 이동
+    editBtn.addEventListener("click", () => {
+        window.location.href = "../postedit/postedit.html"; // postedit 페이지로 이동
     });
 });
