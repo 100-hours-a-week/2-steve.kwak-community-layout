@@ -13,11 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validatePassword(password) {
-        return password.length >= 8 &&
-            /[A-Z]/.test(password) &&
-            /[a-z]/.test(password) &&
-            /[0-9]/.test(password) &&
-            /[\W_]/.test(password);
+        return password.length >= 8;
     }
 
     function validateInputs() {
@@ -33,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (!validatePassword(password)) {
-            passwordError.textContent = "비밀번호는 8자 이상, 대소문자/숫자/특수문자를 포함해야 합니다.";
+            passwordError.textContent = "비밀번호는 8자 이상이어야 합니다.";
             isValid = false;
         } else {
             passwordError.textContent = "";
@@ -46,15 +42,35 @@ document.addEventListener("DOMContentLoaded", function () {
     emailInput.addEventListener("input", validateInputs);
     passwordInput.addEventListener("input", validateInputs);
 
-    document.getElementById("login-form").addEventListener("submit", function (event) {
+    document.getElementById("login-form").addEventListener("submit", async function (event) {
         event.preventDefault();
-        if (!loginButton.disabled) {
-            alert("로그인 성공!");
-            window.location.href = "board.html"; // 게시글 목록 페이지로 이동 (추후 추가)
+        if (loginButton.disabled) return;
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        try {
+            const response = await fetch("/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert("로그인 성공!");
+                localStorage.setItem("token", data.data.token);
+                window.location.href = "../posts/posts.html";
+            } else {
+                alert(data.message || "로그인 실패");
+            }
+        } catch (error) {
+            alert("로그인 중 오류가 발생했습니다.");
+            console.error("Error:", error);
         }
     });
 
     signupButton.addEventListener("click", function () {
-        window.location.href = "signup.html"; // 회원가입 페이지로 이동 (추후 추가)
+        window.location.href = "../signup/signup.html";
     });
 });
