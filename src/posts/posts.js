@@ -27,9 +27,9 @@ function renderPosts(posts) {
         postItem.innerHTML = `
             <h3 class="post-title">${post.title}</h3>
             <p class="post-author">${post.author}</p>
-            <p class="post-date">${new Date(post.created_at).toLocaleString()}</p>
-            <p class="post-likes">👍 ${post.likes} 좋아요</p>
-            <p class="post-comments">💬 ${post.comments.length} 댓글</p>
+            <p class="post-date">${post.createdAt}</p>
+            <p class="post-likes">👍 ${post.likecount} 좋아요</p>
+            <p class="post-comments">💬 ${post.commentcount} 댓글</p>
         `;
 
         postItem.addEventListener("click", () => {
