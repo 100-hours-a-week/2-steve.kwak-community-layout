@@ -14,11 +14,6 @@ function setupDropdown() {
 
     // 현재 로그인된 사용자 ID 가져오기 추후에 가져오는 방식 수정해야함.
     const userId = localStorage.getItem("user_id");
-    if (!userId) {
-        alert("로그인이 필요합니다.");
-        window.location.href = "../login/login.html";
-        return;
-    }
 
     // 프로필 클릭 시 드롭다운 표시
     profileDropdown.addEventListener("click", () => {
