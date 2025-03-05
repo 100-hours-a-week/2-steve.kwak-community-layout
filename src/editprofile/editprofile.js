@@ -1,7 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const profileDropdown = document.querySelector(".profile-dropdown");
-    const dropdownMenu = document.querySelector(".dropdown-menu");
-    const dropdownItems = document.querySelectorAll(".dropdown-item");
+document.addEventListener("DOMContentLoaded", async () => {
     const updateBtn = document.querySelector(".update-btn");
     const deleteBtn = document.querySelector(".delete-btn");
     const modal = document.querySelector(".modal");
@@ -9,21 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const nicknameInput = document.querySelector("#nickname");
     const helperText = document.querySelector(".helper-text");
 
-    // 프로필 클릭 시 드롭다운 표시
-    profileDropdown.addEventListener("click", () => {
-        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-    });
+    // URL에서 user_id 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("user_id");
 
-    // 드롭다운 메뉴 클릭 이벤트 추가
-    dropdownItems.forEach((item) => {
-        item.addEventListener("click", (event) => {
-            if (event.target.textContent === "회원정보 수정") {
-                window.location.href = "../editprofile/editprofile.html"; // 회원정보 수정 페이지로 이동
-            } else if (event.target.textContent === "비밀번호 수정") {
-                window.location.href = "../editpassword/editpassword.html"; // 비밀번호 수정 페이지로 이동
-            }
-        });
-    });
+    if (!userId) {
+        alert("잘못된 접근입니다.");
+        window.location.href = "../login/login.html";
+        return;
+    }
 
     // 닉네임 입력 검증
     nicknameInput.addEventListener("input", () => {
@@ -35,13 +26,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 수정하기 버튼 클릭 시
-    updateBtn.addEventListener("click", () => {
-        if (nicknameInput.value.trim() === "") {
+    // 수정하기 버튼 클릭 시 API 호출
+    updateBtn.addEventListener("click", async () => {
+        const newNickname = nicknameInput.value.trim();
+
+        if (newNickname === "") {
             helperText.textContent = "*닉네임을 입력해주세요.";
             helperText.style.color = "red";
-        } else {
-            modal.classList.remove("hidden");
+            return;
+        }
+
+        try {
+            const response = await fetch(`/users/${userId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nickname: newNickname }),
+            });
+
+            if (!response.ok) throw new Error("닉네임 변경 실패");
+
+            alert("닉네임이 성공적으로 변경되었습니다.");
+            modal.classList.add("hidden");
+        } catch (error) {
+            console.error(error);
+            alert("닉네임 변경에 실패했습니다.");
         }
     });
 
@@ -50,12 +58,21 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.add("hidden");
     });
 
-    // 회원 탈퇴 버튼 클릭 시
-    deleteBtn.addEventListener("click", () => {
+    // 회원 탈퇴 API 호출
+    deleteBtn.addEventListener("click", async () => {
         const confirmDelete = confirm("정말로 회원 탈퇴를 진행하시겠습니까?");
-        if (confirmDelete) {
+        if (!confirmDelete) return;
+
+        try {
+            const response = await fetch(`/users/${userId}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("회원 탈퇴 실패");
+
             alert("회원 탈퇴가 완료되었습니다.");
-            window.location.href = "../login/login.html"; // 로그인 페이지로 이동
+            localStorage.removeItem("user_id"); // 로컬 스토리지에서 유저 ID 삭제
+            window.location.href = "../login/login.html";
+        } catch (error) {
+            console.error(error);
+            alert("회원 탈퇴에 실패했습니다.");
         }
     });
 });
