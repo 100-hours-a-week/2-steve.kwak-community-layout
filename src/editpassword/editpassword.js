@@ -21,23 +21,23 @@ document.addEventListener("DOMContentLoaded", async function () {
         passwordError.textContent = "";
         confirmPasswordError.textContent = "";
 
-        let isValid = true;
+        //let isValid = true;
 
         // 비밀번호 검증 (8~20자, 대소문자, 숫자, 특수문자 포함)
         if (password.length < 8 || password.length > 20 ||
             !/[A-Z]/.test(password) || !/[a-z]/.test(password) ||
             !/[0-9]/.test(password) || !/[\W_]/.test(password)) {
             passwordError.textContent = "비밀번호는 8~20자이며, 대문자/소문자/숫자/특수문자를 포함해야 합니다.";
-            isValid = false;
+            //isValid = false;
         }
 
         // 비밀번호 확인 일치 여부
         if (confirmPassword !== password) {
             confirmPasswordError.textContent = "비밀번호가 일치하지 않습니다.";
-            isValid = false;
+            //isValid = false;
         }
 
-        submitBtn.disabled = !isValid;
+       // submitBtn.disabled = !isValid;
     }
 
     passwordInput.addEventListener("input", validatePasswords);
