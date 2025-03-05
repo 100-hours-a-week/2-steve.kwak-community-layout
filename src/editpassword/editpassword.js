@@ -1,10 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const passwordInput = document.getElementById("password");
     const passwordConfirmInput = document.getElementById("password-confirm");
     const submitBtn = document.getElementById("submit-btn");
-    const profileDropdown = document.querySelector(".profile-dropdown");
-    const dropdownMenu = document.querySelector(".dropdown-menu");
-    const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+    // URL에서 user_id 가져오기
+    const userId = new URLSearchParams(window.location.search).get("user_id");
+
+    // if (!userId) {
+    //     alert("잘못된 접근입니다.");
+    //     window.location.href = "../login/login.html";
+    //     return;
+    // }
 
     function validatePasswords() {
         const password = passwordInput.value;
@@ -17,12 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let isValid = true;
 
-        if (password.length < 8 || password.length > 20 || !/[A-Z]/.test(password) ||
-            !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[\W_]/.test(password)) {
+        // 비밀번호 검증 (8~20자, 대소문자, 숫자, 특수문자 포함)
+        if (password.length < 8 || password.length > 20 ||
+            !/[A-Z]/.test(password) || !/[a-z]/.test(password) ||
+            !/[0-9]/.test(password) || !/[\W_]/.test(password)) {
             passwordError.textContent = "비밀번호는 8~20자이며, 대문자/소문자/숫자/특수문자를 포함해야 합니다.";
             isValid = false;
         }
 
+        // 비밀번호 확인 일치 여부
         if (confirmPassword !== password) {
             confirmPasswordError.textContent = "비밀번호가 일치하지 않습니다.";
             isValid = false;
@@ -34,24 +43,26 @@ document.addEventListener("DOMContentLoaded", function () {
     passwordInput.addEventListener("input", validatePasswords);
     passwordConfirmInput.addEventListener("input", validatePasswords);
 
-    document.getElementById("password-form").addEventListener("submit", function (e) {
+    // 비밀번호 변경 API 호출
+    document.getElementById("password-form").addEventListener("submit", async function (e) {
         e.preventDefault();
-        alert("비밀번호가 성공적으로 변경되었습니다.");
-    });
 
-    // 🔹 프로필 클릭 시 드롭다운 표시
-    profileDropdown.addEventListener("click", () => {
-        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-    });
+        const newPassword = passwordInput.value.trim();
 
-    // 🔹 드롭다운 메뉴 클릭 이벤트 추가
-    dropdownItems.forEach((item) => {
-        item.addEventListener("click", (event) => {
-            if (event.target.textContent === "회원정보 수정") {
-                window.location.href = "../editprofile/editprofile.html";
-            } else if (event.target.textContent === "비밀번호 수정") {
-                window.location.href = "../editpassword/editpassword.html";
-            }
-        });
+        try {
+            const response = await fetch(`/users/${userId}/password`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: newPassword }),
+            });
+
+            if (!response.ok) throw new Error("비밀번호 변경 실패");
+
+            alert("비밀번호가 성공적으로 변경되었습니다.");
+            window.location.href = "../login/login.html"; // 로그인 페이지로 이동
+        } catch (error) {
+            console.error(error);
+            alert("비밀번호 변경에 실패했습니다.");
+        }
     });
 });
